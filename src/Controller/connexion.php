@@ -19,7 +19,7 @@ class connexion extends AbstractController
     {
         // TODO gérer la connexion POST
 
-        return $this->render('connexion.html.twig');
+        return $this->render('inscription.html.twig');
     }
 
     /**
