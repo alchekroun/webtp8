@@ -9,23 +9,21 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class accueil
+ * Class panier
+ * @package App\Controller
+ * @Route("/panier")
  */
-class accueil extends AbstractController
+class panier extends AbstractController
 {
 
     /**
      * @return Response
-     * @Route("/", name="accueil")
+     * @Route("/", name="panier")
      */
     public function index(): Response
     {
-        $q = [1, 2, 3];
 
-        return $this->render('accueil.html.twig', [
-            'x' => 2,
-            'request' => $q,
-        ]);
+        return $this->render('panier.html.twig');
     }
 
 }
