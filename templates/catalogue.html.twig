@@ -63,168 +63,51 @@
 
                 <!--Grid row-->
                 <div class="row wow fadeIn">
+                    {% for livre in livres %}
+                        <!--Grid column-->
+                        <div class="col-lg-3 col-md-6 mb-4">
 
-                    <!--Grid column-->
-                    <div class="col-lg-3 col-md-6 mb-4">
+                            <!--Card-->
+                            <div class="card">
 
-                        <!--Card-->
-                        <div class="card">
+                                <!--Card image-->
+                                <div class="view overlay">
+                                    <img src="{{ livre.image }}" class="card-img-top" alt="">
+                                    <a>
+                                        <div class="mask rgba-white-slight"></div>
+                                    </a>
+                                </div>
+                                <!--Card image-->
 
-                            <!--Card image-->
-                            <div class="view overlay">
-                                <img src="https://media.cultura.com/media/catalog/product/cache/1/image/1000x1000/9df78eab33525d08d6e5fb8d27136e95/s/h/a/shayne-davies-t1-moi-rousse-et-fauchee-9782811233211_0.jpg?t=1616915400" class="card-img-top" alt="">
-                                <a>
-                                    <div class="mask rgba-white-slight"></div>
-                                </a>
+                                <!--Card content-->
+                                <div class="card-body text-center">
+                                    <!--Category & Title-->
+                                    <a href="" class="grey-text">
+                                        <h6>{{ livre.auteur }}</h6>
+                                    </a>
+                                    <h7>
+                                        <strong>
+                                            <a href="" class="dark-grey-text">{{ livre.nom }}</a>
+                                        </strong>
+                                    </h7>
+
+                                    <h4 class="font-weight-bold blue-text">
+                                        <strong>{{ livre.prix }}€</strong>
+                                    </h4>
+
+                                    <button class="btn btn-primary btn-md my-0 p" type="submit">Ajouter au panier
+                                        <i class="fas fa-shopping-cart ml-1"></i>
+                                    </button>
+
+                                </div>
+                                <!--Card content-->
+
                             </div>
-                            <!--Card image-->
-
-                            <!--Card content-->
-                            <div class="card-body text-center">
-                                <!--Category & Title-->
-                                <a href="" class="grey-text">
-                                    <h6>Jackie May</h6>
-                                </a>
-                                <h7>
-                                    <strong>
-                                        <a href="" class="dark-grey-text">t.1 - Moi, rousse et fauchée</a>
-                                    </strong>
-                                </h7>
-
-                                <h4 class="font-weight-bold blue-text">
-                                    <strong>8.99€</strong>
-                                </h4>
-
-                            </div>
-                            <!--Card content-->
+                            <!--Card-->
 
                         </div>
-                        <!--Card-->
-
-                    </div>
-                    <!--Grid column-->
-
-                    <!--Grid column-->
-                    <div class="col-lg-3 col-md-6 mb-4">
-
-                        <!--Card-->
-                        <div class="card">
-
-                            <!--Card image-->
-                            <div class="view overlay">
-                                <img src="https://media.cultura.com/media/catalog/product/cache/1/image/1000x1000/9df78eab33525d08d6e5fb8d27136e95/l/o/u/l-outsider-9782253260622_0.jpg?t=1623913388" class="card-img-top" alt="">
-                                <a>
-                                    <div class="mask rgba-white-slight"></div>
-                                </a>
-                            </div>
-                            <!--Card image-->
-
-                            <!--Card content-->
-                            <div class="card-body text-center">
-                                <!--Category & Title-->
-                                <a href="" class="grey-text">
-                                    <h6>Stephen King</h6>
-                                </a>
-                                <h7>
-                                    <strong>
-                                        <a href="" class="dark-grey-text">L'outsider</a>
-                                    </strong>
-                                </h7>
-
-                                <h4 class="font-weight-bold blue-text">
-                                    <strong>9.99€</strong>
-                                </h4>
-
-                            </div>
-                            <!--Card content-->
-
-                        </div>
-                        <!--Card-->
-
-                    </div>
-                    <!--Grid column-->
-
-                    <!--Grid column-->
-                    <div class="col-lg-3 col-md-6 mb-4">
-
-                        <!--Card-->
-                        <div class="card">
-
-                            <!--Card image-->
-                            <div class="view overlay">
-                                <img src="https://media.cultura.com/media/catalog/product/cache/1/image/1000x1000/9df78eab33525d08d6e5fb8d27136e95/e/r/e/erectus-9782266299787_0.jpg?t=1616932171" class="card-img-top" alt="">
-                                <a>
-                                    <div class="mask rgba-white-slight"></div>
-                                </a>
-                            </div>
-                            <!--Card image-->
-
-                            <!--Card content-->
-                            <div class="card-body text-center">
-                                <!--Category & Title-->
-                                <a href="" class="grey-text">
-                                    <h6>Xavier Müller</h6>
-                                </a>
-                                <h7>
-                                    <strong>
-                                        <a href="" class="dark-grey-text">Erectus
-                                        </a>
-                                    </strong>
-                                </h7>
-
-                                <h4 class="font-weight-bold blue-text">
-                                    <strong>11,95€</strong>
-                                </h4>
-
-                            </div>
-                            <!--Card content-->
-
-                        </div>
-                        <!--Card-->
-
-                    </div>
-                    <!--Grid column-->
-
-                    <!--Fourth column-->
-                    <div class="col-lg-3 col-md-6 mb-4">
-
-                        <!--Card-->
-                        <div class="card">
-
-                            <!--Card image-->
-                            <div class="view overlay">
-                                <img src="https://media.cultura.com/media/catalog/product/cache/1/image/1000x1000/9df78eab33525d08d6e5fb8d27136e95/j/a/i/j-ai-du-rever-trop-fort-9782266305648_0.jpg?t=1614216038" class="card-img-top" alt="">
-                                <a>
-                                    <div class="mask rgba-white-slight"></div>
-                                </a>
-                            </div>
-                            <!--Card image-->
-
-                            <!--Card content-->
-                            <div class="card-body text-center">
-                                <!--Category & Title-->
-                                <a href="" class="grey-text">
-                                    <h6>Michel Bussi</h6>
-                                </a>
-                                <h7>
-                                    <strong>
-                                        <a href="" class="dark-grey-text">J'ai du rêver trop fort</a>
-                                    </strong>
-                                </h7>
-
-                                <h4 class="font-weight-bold blue-text">
-                                    <strong>21,9€</strong>
-                                </h4>
-
-                            </div>
-                            <!--Card content-->
-
-                        </div>
-                        <!--Card-->
-
-                    </div>
-                    <!--Fourth column-->
-
+                        <!--Grid column-->
+                    {% endfor %}
                 </div>
                 <!--Grid row-->
 

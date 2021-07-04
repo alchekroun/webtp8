@@ -57,8 +57,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/http-foundation" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/http-kernel" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/intl" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/mailer" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/maker-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/mime" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/monolog-bridge" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/monolog-bundle" />
@@ -137,6 +135,11 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-common" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-docblock" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/type-resolver" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/maker-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/mailer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/jean85/pretty-package-versions" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/mongodb/mongodb" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/alcaeus/mongo-php-adapter" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

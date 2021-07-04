@@ -7,6 +7,7 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\articleRepository;
 
 class catalogue extends AbstractController
 {
@@ -17,9 +18,13 @@ class catalogue extends AbstractController
      */
     public function catalogue(): Response
     {
-        // TODO gérer la connexion POST
+        $livres = new articleRepository();
 
-        return $this->render('catalogue.html.twig');
+        // TODO gérer la connexion POST
+        return $this->render('catalogue.html.twig', [
+            "livres" => $livres->getAllItem()
+        ]);
+
     }
 
 
