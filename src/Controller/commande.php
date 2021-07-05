@@ -23,7 +23,9 @@ class commande extends AbstractController
     public function index(): Response
     {
 
-        return $this->render('commandes/index.html.twig');
+        return $this->render('commandes/index.html.twig', [
+            'commandes' => []
+            ]);
     }
 
     /**

@@ -43,10 +43,10 @@
                 {% for item in panier %}
                     {% for qte, livre in item %}
                         <tr>
-                            <th scope="row">{{ qte }}</th>
                             <td>{{ livre.nom }}</td>
                             <td>{{ livre.auteur }}</td>
                             <td><strong>{{ livre.prix }}€</strong></td>
+                            <th scope="row">{{ qte }}</th>
                             <td>
                                 <a href="{{ path('panier_ajouter', {'id' : livre.id}) }}" class="btn btn-primary">+</a>
                                 <a href="{{ path('panier_retirer', {'id' : livre.id}) }}" class="btn btn-primary">-</a>
@@ -56,6 +56,9 @@
                 {% endfor %}
                 </tbody>
             </table>
+            <div>
+                <a href="{{ path('traitement_commande') }}" class="btn btn-primary">Passer commande</a>
+            </div>
         </div>
     </div>
 {% endblock %}

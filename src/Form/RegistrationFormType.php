@@ -18,11 +18,11 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('lastname')
-            ->add('firstname')
-            ->add('email', EmailType::class, [
+            ->add('Nom de famille')
+            ->add('Prénom')
+            ->add('Email', EmailType::class, [
                 'constraints' => [
-                    new Email(['message' => 'Please enter a valid email address.'])
+                    new Email(['message' => 'Entrez une adresse email valide.'])
                 ]
             ])
             ->add('plainPassword', RepeatedType::class, [
@@ -32,18 +32,18 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Entrez un mot de passe',
                     ]),
                     new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'min' => 4,
+                        'minMessage' => 'Votre mdp doit contenir au moins {{ limit }} char',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
                 ],
-                'first_options' => ['label' => 'Password'],
-                'second_options' => ['label' => 'Confirm Password'],
-                'invalid_message' => 'Your password does not match the confirmation.'
+                'first_options' => ['label' => 'Mot de passe'],
+                'second_options' => ['label' => 'Confirmez Mot de passe'],
+                'invalid_message' => 'Votre mot de passe n\'est pas conforme.'
             ])
         ;
     }
