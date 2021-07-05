@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 
+use App\Repository\articleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,11 +21,10 @@ class accueil extends AbstractController
      */
     public function index(): Response
     {
-        $q = [1, 2, 3];
+        $articleRepo = new articleRepository();
 
-        return $this->render('accueil.html.twig', [
-            'x' => 2,
-            'request' => $q,
+        return $this->render('home/index.html.twig', [
+            "livres" => $articleRepo->getAllItem()
         ]);
     }
 

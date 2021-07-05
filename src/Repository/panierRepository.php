@@ -3,69 +3,74 @@
 
 namespace App\Repository;
 
-use predis;
+use Snc\RedisBundle\Client\Phpredis\Client;
+use Symfony\Component\Cache\Adapter\RedisAdapter;
+use App\Repository\articleRepository;
 
 class panierRepository
 {
-    public function getRedis(){
+    /** @var  Client */
+    private $redisClient;
 
-        Predis\Autoloader::register();
-
-        return new Predis\Client(
-            array(
-                "scheme" => "tcp",
-                "host" => "localhost",
-                "port" => 6379
-            )
+    public function __construct()
+    {
+        $this->redisClient = RedisAdapter::createConnection(
+            'redis://localhost'
         );
     }
 
-    public function ajouterItem(int $id){
-        $redis = $this->getRedis();
+    public function ajouterItem($id){
 
         $ttl_5mn = 60 * 5; // 5mn expiration
 
-        if($redis->exists($id)){
-            $redis->incr($id);
-            // On prolonge la durée de vie du panier à chaque interaction
-            $redis->expire('panier', $ttl_5mn);
+        if($this->redisClient->exists($id)){
+            $this->redisClient->incr($id);
         } else {
-            $redis->sadd('panier', (array) $id);
-            $redis->expire('panier', $ttl_5mn);
-            $redis->incr($id);
-            $redis->expire($id, $ttl_5mn);
+            $this->redisClient->sadd('panier', (array) $id);
+            $this->redisClient->incr($id);
         }
+        // On prolonge la durée de vie du panier à chaque interaction
+        $this->redisClient->expire('panier', $ttl_5mn);
+        $this->redisClient->expire($id, $ttl_5mn);
     }
 
-    public function retirerItem(int $id){
-        $redis = $this->getRedis();
+    public function retirerItem($id){
 
         $ttl_5mn = 60 * 5; // 5mn expiration
 
-        if($redis->exists($id)){
-            $redis->del((array) $id);
-            $redis->srem('panier', $id);
+        if($this->redisClient->exists($id)){
+            if($this->redisClient->get($id) > 1 ) {
+                $this->redisClient->decr($id);
+                $this->redisClient->expire($id, $ttl_5mn);
+            } else {
+                $this->redisClient->del((array) $id);
+                $this->redisClient->srem('panier', $id);
+            }
             // On prolonge la durée de vie du panier à chaque interaction
-            $redis->expire('panier', $ttl_5mn);
+            $this->redisClient->expire('panier', $ttl_5mn);
         }
     }
 
+    /*
     public function getPanier(){
-        $redis = $this->getRedis();
+        $ids = [];
 
-        $output = [];
-
-        if($redis->exists('panier')){
-            $panier = $redis->smembers('panier');
+        if($this->redisClient->exists('panier')){
+            $panier = $this->redisClient->smembers('panier');
             foreach ($panier as $key){
-                $output[$key] = $redis->get($key);
+                $output[$key] = $this->redisClient->get($key);
             }
         }
-        return $output;
+        return $ids;
+
+        $articleRepo = new articleRepository();
+
+        return $articleRepo->getAllItemInArray($ids);
     }
+    */
 
     public function viderPanier(){
-        $redis = $this->getRedis();
+        // $redis = $this->getRedis();
 
     }
 

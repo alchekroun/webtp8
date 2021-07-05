@@ -4,8 +4,11 @@
 namespace App\Controller;
 
 
+use App\Repository\articleRepository;
 use App\Repository\panierRepository;
+use Snc\RedisBundle\Client\Phpredis\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Cache\Adapter\RedisAdapter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -16,6 +19,15 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class panier extends AbstractController
 {
+    /** @var  Client */
+    private $redisClient;
+
+    public function __construct()
+    {
+        $this->redisClient = RedisAdapter::createConnection(
+            'redis://localhost'
+        );
+    }
 
     /**
      * @return Response
@@ -23,11 +35,26 @@ class panier extends AbstractController
      */
     public function index(): Response
     {
+        $articleRepo = new articleRepository();
 
-        return $this->render('panier.html.twig');
+        $output = [];
+
+        if($this->redisClient->exists('panier')){
+            $panier = $this->redisClient->smembers('panier');
+            foreach ($panier as $key){
+                $tmp[$this->redisClient->get($key)] = $articleRepo->getItemById($key);
+                array_push($output, $tmp);
+                $tmp = [];
+            }
+        }
+
+        return $this->render('panier/index.html.twig', [
+            "panier" => $output
+        ]);
     }
 
     /**
+     * @param int $id
      * @return Response
      * @Route("/ajouter/{id}", name="panier_ajouter", requirements={"id"="\d+"})
      */
@@ -37,12 +64,11 @@ class panier extends AbstractController
 
         $panierRepo->ajouterItem($id);
 
-        return $this->render('panier.html.twig', [
-            "panier" => $panierRepo->getPanier()
-        ]);
+        return $this->redirectToRoute('panier');
     }
 
     /**
+     * @param int $id
      * @return Response
      * @Route("/retirer/{id}", name="panier_retirer", requirements={"id"="\d+"})
      */
@@ -50,11 +76,9 @@ class panier extends AbstractController
     {
         $panierRepo = new panierRepository();
 
-        $panierRepo->ajouterItem($id);
+        $panierRepo->retirerItem($id);
 
-        return $this->render('panier.html.twig', [
-            "panier" => $panierRepo->getPanier()
-        ]);
+        return $this->redirectToRoute('panier');
     }
 
 }

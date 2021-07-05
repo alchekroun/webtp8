@@ -16,6 +16,12 @@ class articleRepository
         return $livres->find()->toArray();
     }
 
+    public function getItemById($id){
+        $livres = $this->getMongo()->bibliotheque->articles;
+
+        return $livres->findOne(['id' => intval($id)]);
+    }
+
     /*public function test()
     {
         $dbconn = pg_connect("host=localhost dbname=bibliotheque user=postgres password=0000");
