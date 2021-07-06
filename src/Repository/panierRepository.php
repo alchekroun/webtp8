@@ -3,9 +3,9 @@
 
 namespace App\Repository;
 
+use App\Repository\articleRepository;
 use Snc\RedisBundle\Client\Phpredis\Client;
 use Symfony\Component\Cache\Adapter\RedisAdapter;
-use App\Repository\articleRepository;
 
 class panierRepository
 {
@@ -22,10 +22,15 @@ class panierRepository
     public function ajouterItem($id){
 
         $ttl_5mn = 60 * 5; // 5mn expiration
+        $articleRepo = new articleRepository();
+
+        $item_mongo = $articleRepo->getItemById($id);
 
         if($this->redisClient->exists($id)){
             $this->redisClient->incr($id);
-        } else {
+
+            // On vérifie qu'on puisse ajouter un item sans que le stock soit négatif
+        } else if($item_mongo["stock"] - ($this->redisClient->get($id) + 1)  >= 0) {
             $this->redisClient->sadd('panier', (array) $id);
             $this->redisClient->incr($id);
         }
@@ -49,6 +54,22 @@ class panierRepository
             // On prolonge la durée de vie du panier à chaque interaction
             $this->redisClient->expire('panier', $ttl_5mn);
         }
+    }
+
+    public function showPanier(){
+        $articleRepo = new articleRepository();
+
+        $output = [];
+
+        if($this->redisClient->exists('panier')){
+            $panier = $this->redisClient->smembers('panier');
+            foreach ($panier as $key){
+                $tmp[$this->redisClient->get($key)] = $articleRepo->getItemById($key);
+                array_push($output, $tmp);
+                $tmp = [];
+            }
+        }
+        return $output;
     }
 
     /*

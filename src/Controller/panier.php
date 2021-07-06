@@ -4,11 +4,8 @@
 namespace App\Controller;
 
 
-use App\Repository\articleRepository;
 use App\Repository\panierRepository;
-use Snc\RedisBundle\Client\Phpredis\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Cache\Adapter\RedisAdapter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -19,37 +16,20 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class panier extends AbstractController
 {
-    /** @var  Client */
-    private $redisClient;
-
-    public function __construct()
-    {
-        $this->redisClient = RedisAdapter::createConnection(
-            'redis://localhost'
-        );
-    }
-
     /**
      * @return Response
      * @Route("/", name="panier")
      */
     public function index(): Response
     {
-        $articleRepo = new articleRepository();
-
-        $output = [];
-
-        if($this->redisClient->exists('panier')){
-            $panier = $this->redisClient->smembers('panier');
-            foreach ($panier as $key){
-                $tmp[$this->redisClient->get($key)] = $articleRepo->getItemById($key);
-                array_push($output, $tmp);
-                $tmp = [];
-            }
+        if(!$this->getUser()){
+            return $this->redirectToRoute('app_login');
         }
 
+        $panierRepo = new panierRepository();
+
         return $this->render('panier/index.html.twig', [
-            "panier" => $output
+            "panier" => $panierRepo->showPanier()
         ]);
     }
 
@@ -60,6 +40,10 @@ class panier extends AbstractController
      */
     public function ajouter(int $id): Response
     {
+        if(!$this->getUser()){
+            return $this->redirectToRoute('app_login');
+        }
+
         $panierRepo = new panierRepository();
 
         $panierRepo->ajouterItem($id);
@@ -74,6 +58,10 @@ class panier extends AbstractController
      */
     public function retirer(int $id): Response
     {
+        if(!$this->getUser()){
+            return $this->redirectToRoute('app_login');
+        }
+
         $panierRepo = new panierRepository();
 
         $panierRepo->retirerItem($id);

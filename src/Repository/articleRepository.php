@@ -16,6 +16,21 @@ class articleRepository
         return $livres->find()->toArray();
     }
 
+    public function getAllItemAvailable(){
+        $livres = $this->getMongo()->bibliotheque->articles;
+        return $livres->find(['stock' => ['$gt' => 0]])->toArray();
+    }
+
+    public function updateQuantity($id, $qte){
+        $livre = $this->getMongo()->bibliotheque->articles->findOne(['id' => intval($id)]);
+        if($livre["stock"] - $qte >= 0) {
+            $this->getMongo()->bibliotheque->articles->updateOne(
+                ['id' => intval($id)],
+                ['$set' => ['stock' => $livre["stock"] - $qte]]
+            );
+        }
+    }
+
     public function getItemById($id){
         $livres = $this->getMongo()->bibliotheque->articles;
 

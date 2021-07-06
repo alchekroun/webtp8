@@ -40,8 +40,8 @@
                 {% for com in commandes %}
                     <tr>
                         <td>{{ com.id }}</td>
-                        <td>{{ com.date }}</td>
                         <td><strong>{{ com.prix }}€</strong></td>
+                        <td>{{ com.date.format('d/m/Y') }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

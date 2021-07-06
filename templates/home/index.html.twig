@@ -36,6 +36,7 @@
                     <th scope="col">Nom</th>
                     <th scope="col">Auteur</th>
                     <th scope="col">prix</th>
+                    <th scope="col">Quantité restante</th>
                     <th scope="col">Action</th>
                 </tr>
                 </thead>
@@ -46,6 +47,7 @@
                     <td>{{ livre.nom }}</td>
                     <td>{{ livre.auteur }}</td>
                     <td><strong>{{ livre.prix }}€</strong></td>
+                    <td>{{ livre.stock }}</td>
                     <td>
                         <a href="{{ path('panier_ajouter', {'id' : livre.id}) }}" class="btn btn-primary btn-add">Ajouter</a>
                     </td>

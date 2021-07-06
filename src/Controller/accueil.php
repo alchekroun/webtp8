@@ -24,7 +24,7 @@ class accueil extends AbstractController
         $articleRepo = new articleRepository();
 
         return $this->render('home/index.html.twig', [
-            "livres" => $articleRepo->getAllItem()
+            "livres" => $articleRepo->getAllItemAvailable()
         ]);
     }
 
