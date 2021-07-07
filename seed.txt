@@ -1,0 +1,34 @@
+Use bibliotheque
+
+db.createCollection( "articles", {
+   validator: { $jsonSchema: {
+      bsonType: "object",
+      properties: {
+         id: {
+            bsonType: "int",
+         },
+         auteur: {
+            bsonType : "string",
+         },
+         nom: {
+            bsonType : "string",
+         },
+	 	 stock: {
+            bsonType: "int",
+         },
+         prix: {
+            bsonType : "decimal",
+         },
+         image: {
+            bsonType : "string",
+         }
+      }
+   } }
+} )
+
+db.articles.insertMany([
+   { 'id': NumberInt(1), auteur: "Jackie May", nom: "t.1 - Moi, rousse et fauchée", stock: NumberInt(20), prix: NumberDecimal("8.99"), image: "https://media.cultura.com/media/catalog/product/cache/1/image/1000x1000/9df78eab33525d08d6e5fb8d27136e95/s/h/a/shayne-davies-t1-moi-rousse-et-fauchee-9782811233211_0.jpg?t=1616915400"},
+   { 'id': NumberInt(2), auteur: "Stephen King", nom: "L'outsider", stock: NumberInt(15), prix: NumberDecimal("9.99"), image: "https://media.cultura.com/media/catalog/product/cache/1/image/1000x1000/9df78eab33525d08d6e5fb8d27136e95/l/o/u/l-outsider-9782253260622_0.jpg?t=1623913388"},
+   { 'id': NumberInt(3), auteur: "Xavier Müller", nom: "Erectus", stock: NumberInt(30), prix: NumberDecimal("11.95"), image: "https://media.cultura.com/media/catalog/product/cache/1/image/1000x1000/9df78eab33525d08d6e5fb8d27136e95/e/r/e/erectus-9782266299787_0.jpg?t=1616932171"},
+   { 'id': NumberInt(4), auteur: "Michel Bussi", nom: "J'ai du rêver trop fort", stock: NumberInt(15), prix: NumberDecimal("18.99"), image: "https://media.cultura.com/media/catalog/product/cache/1/image/1000x1000/9df78eab33525d08d6e5fb8d27136e95/j/a/i/j-ai-du-rever-trop-fort-9782266305648_0.jpg?t=1614216038"},
+])
